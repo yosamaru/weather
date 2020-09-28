@@ -63,24 +63,26 @@ const WeatherWrapper = styled.div`
 // 使用ES6的class定义组件
 class Weather extends React.Component {
     state = {
-        value: '',
+        value: 'BeiJing',
         weatherInfo: null,
         error: false,
     };
 
+    // 搜索框输入
     handleInputChange = e => {
         this.setState({
             value: e.target.value,
         });
     };
 
+    // 查询城市
     handleSearchCity = e => {
         e.preventDefault();
         const {value} = this.state;
         const APIkey = process.env.REACT_APP_API_KEY;
 
-        const weather = `https://api.openweathermap.org/data/2.5/weather?q=${value}&APPID=${APIkey}&units=metric`;
-        const forecast = `https://api.openweathermap.org/data/2.5/forecast?q=${value}&APPID=${APIkey}&units=metric`;
+        const weather = `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${APIkey}&units=metric`;
+        const forecast = `https://api.openweathermap.org/data/2.5/forecast?q=${value}&appid=${APIkey}&units=metric`;
 
         Promise.all([fetch(weather), fetch(forecast)])
             .then(([res1, res2]) => {
@@ -91,20 +93,20 @@ class Weather extends React.Component {
             })
             .then(([data1, data2]) => {
                 const months = [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                    'August',
-                    'September',
-                    'October',
-                    'Nocvember',
-                    'December',
+                    '一月',
+                    '二月',
+                    '三月',
+                    '四月',
+                    '五月',
+                    '六月',
+                    '七月',
+                    '八月',
+                    '九月',
+                    '十月',
+                    '十一月',
+                    '十二月',
                 ];
-                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
                 const currentDate = new Date();
                 const date = `${days[currentDate.getDay()]} ${currentDate.getDate()} ${
                     months[currentDate.getMonth()]
